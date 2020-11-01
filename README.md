@@ -1,22 +1,25 @@
+# May 2020 Notice
+
+For many games this script is not needed anymore, and may soon not be needed at all.
+
+This is largely thanks to work Guy1524 has done in officially implementing Media Foundation support into Wine. I would reccommend trying games with latest Proton-GE first, and only using this as a backup.
+
 # mf-install
 Media Foundation workaround for Wine
 
-Easily add Media Foundation support to a Wine prefix. Just set WINEPREFIX and run.
+Easily add Media Foundation support to a Wine prefix. Just set WINEPREFIX to a valid Wine prefix and run.
 
 Example usage:
 
-`WINEPREFIX="/home/gaben/.local/share/Steam/steamapps/compatdata/751440/pfx" ./mf-install.sh`
+`WINEPREFIX="/dev/brain/wine prefixes can be anywhere/folder" ./mf-install.sh`
 
-Optionally you can use Proton's Wine instead of your system:
+Steam stores Proton Wine prefixes as `<STEAM FOLDER>/steamapps/compatdata/<GAME ID>/pfx`
 
-```
-export WINEPREFIX="/home/gaben/.local/share/Steam/steamapps/compatdata/751440/pfx"
-export PROTON="/home/gaben/.local/share/Steam/steamapps/common/Proton 4.11"
-./mf-install.sh -proton
-```
+Optionally you can use Proton's Wine instead of your system's Wine. See the script for how.
+
+For CPUs with more than 8 physical cores see this known issue: https://github.com/z0z0z/mf-install/issues/44
 
 ### Some known working games:
-
 - American Fugitive
 - Blasphemous
 - BlazBlue: Central Fiction

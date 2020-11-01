@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 check_env() {
     [ -z "$1" ] && echo "$2 is not set" && exit 1
@@ -15,26 +15,28 @@ override_dll() {
 check_env "$WINEPREFIX" WINEPREFIX
 check_sanity "$WINEPREFIX" drive_c
 
-if [ "$1" == "-proton" ]; then
+# User instructions:
+# Set PROTON to a Proton folder (in common not compatdata) just like WINEPREFIX, pass -proton to script
+if [ "$1" = "-proton" ]; then
 
     check_env "$PROTON" PROTON
     check_sanity "$PROTON" dist/bin
 
-    export PATH=""$PROTON"/dist/bin:$PATH"
-    export WINESERVER=""$PROTON"/dist/bin/wineserver"
-    export WINELOADER=""$PROTON"/dist/bin/wine"
-    export WINEDLLPATH=""$PROTON"/dist/lib/wine:"$PROTON"/dist/lib64/wine"
+    export PATH="$PROTON/dist/bin:$PATH"
+    export WINESERVER="$PROTON/dist/bin/wineserver"
+    export WINELOADER="$PROTON/dist/bin/wine"
+    export WINEDLLPATH="$PROTON/dist/lib/wine:$PROTON/dist/lib64/wine"
 
 fi
 
 set -e
 export WINEDEBUG="-all"
 
-scriptdir=$(dirname "$0")
+scriptdir="$(dirname "$(realpath "$0")")"
 cd "$scriptdir"
 
-cp -v syswow64/* "$WINEPREFIX/drive_c/windows/syswow64"
-cp -v system32/* "$WINEPREFIX/drive_c/windows/system32"
+cp -vf syswow64/* "$WINEPREFIX/drive_c/windows/syswow64"
+cp -vf system32/* "$WINEPREFIX/drive_c/windows/system32"
 
 override_dll "colorcnv"
 override_dll "mf"
